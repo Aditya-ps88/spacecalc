@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Cosmic Calc</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div class="calculator">
+      <h2 class="title">Cosmic Calc</h2>
+      <p class="subtitle">The universe's most advanced calculator</p>
+
+      <div id="display" class="display">0</div>
+
+      <div class="buttons">
+        <!-- First Row -->
+        <button onclick="clearDisplay()">C</button>
+        <button onclick="appendValue('%')">%</button>
+        <button onclick="deleteLast()">⌫</button>
+        <button onclick="appendValue('/')">÷</button>
+
+        <!-- Second Row -->
+        <button onclick="appendValue('7')">7</button>
+        <button onclick="appendValue('8')">8</button>
+        <button onclick="appendValue('9')">9</button>
+        <button onclick="appendValue('*')">×</button>
+
+        <!-- Third Row -->
+        <button onclick="appendValue('4')">4</button>
+        <button onclick="appendValue('5')">5</button>
+        <button onclick="appendValue('6')">6</button>
+        <button onclick="appendValue('-')">−</button>
+
+        <!-- Fourth Row -->
+        <button onclick="appendValue('1')">1</button>
+        <button onclick="appendValue('2')">2</button>
+        <button onclick="appendValue('3')">3</button>
+        <button onclick="appendValue('+')">+</button>
+
+        <!-- Fifth Row -->
+        <button class="span-2" onclick="appendValue('0')">0</button>
+        <button onclick="appendValue('.')">.</button>
+        <button onclick="calculate()">=</button>
+      </div>
+    </div>
+
+    <script>
+        // Get the display element from the page
+        var display = document.getElementById("display");
+      
+        // Add number or symbol to the display
+        function appendValue(value) {
+          if (display.textContent === "0" || display.textContent === "Error") {
+            display.textContent = value;
+          } else {
+            display.textContent = display.textContent + value;
+          }
+        }
+      
+        // Clear everything from the display
+        function clearDisplay() {
+          display.textContent = "0";
+        }
+      
+        // Delete the last character from the display
+        function deleteLast() {
+          var current = display.textContent;
+          if (current.length === 1 || current === "Error") {
+            display.textContent = "0";
+          } else {
+            var newText = current.substring(0, current.length - 1);
+            display.textContent = newText;
+          }
+        }
+      
+        // Calculate the result and show it
+        function calculate() {
+          var input = display.textContent;
+      
+          // Replace symbols for division and multiplication
+          input = input.replace(/÷/g, "/");
+          input = input.replace(/×/g, "*");
+      
+          try {
+            var result = eval(input);
+            display.textContent = result;
+          } catch (error) {
+            display.textContent = "Error";
+          }
+        }
+      </script>
+      
+  </body>
+</html>
